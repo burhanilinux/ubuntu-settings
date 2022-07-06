@@ -1,0 +1,1 @@
+rm_conffile /etc/netplan/10-rpi-ethernet-eth0.yaml 22.04.1~

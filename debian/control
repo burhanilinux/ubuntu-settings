@@ -1,0 +1,30 @@
+Source: ubuntu-settings
+Section: x11
+Priority: optional
+Maintainer: Ubuntu Desktop Team <ubuntu-desktop@lists.ubuntu.com>
+Build-Depends: debhelper-compat (= 12), meson (>= 0.40.1), dh-translations
+Standards-Version: 4.1.0
+Vcs-Browser: https://git.launchpad.net/~ubuntu-desktop/ubuntu/+source/ubuntu-settings
+Vcs-Git: https://git.launchpad.net/~ubuntu-desktop/ubuntu/+source/ubuntu-settings
+
+Package: ubuntu-settings
+Architecture: all
+Depends: ${misc:Depends},
+         gnome-control-center-data,
+         gsettings-desktop-schemas (>= 40),
+         libglib2.0-bin (>= 2.53.4-3ubuntu1~),
+Description: default settings for the Ubuntu desktop
+ This package contains the default settings used by Ubuntu.
+
+Package: ubuntu-touch-settings
+Architecture: all
+Depends: ${misc:Depends}, libglib2.0-bin
+Description: default settings for Ubuntu Touch
+ This package contains the default settings used by Ubuntu Touch.
+
+Package: ubuntu-raspi-settings
+Architecture: all
+Depends: ${misc:Depends}, lz4
+Description: default settings for Raspberry Pi devices
+ This package contains some default settings that are specific to Raspberry Pi
+ devices.

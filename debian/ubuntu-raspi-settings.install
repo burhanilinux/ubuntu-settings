@@ -1,0 +1,5 @@
+usr/lib/systemd/network/10-raspi-eth0.link
+usr/lib/NetworkManager/conf.d/ZZraspi-wifi-powersave-off.conf
+var/lib/polkit-1/localauthority/10-vendor.d/disable-suspend.pkla
+usr/lib/udev/rules.d/99-gpio.rules
+etc/initramfs-tools/conf.d/raspi-lz4.conf

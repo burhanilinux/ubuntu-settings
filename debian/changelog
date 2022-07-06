@@ -1,0 +1,870 @@
+ubuntu-settings (22.04.6) jammy; urgency=medium
+
+  * data/ubuntu/applications/gnome-initial-setup.desktop.in:
+    - use the new logo icon for the ubuntu session override desktop entry
+      (lp: #1966115)
+
+ -- Sebastien Bacher <seb128@ubuntu.com>  Mon, 04 Apr 2022 22:05:07 +0200
+
+ubuntu-settings (22.04.5) jammy; urgency=medium
+
+  * ubuntu-settings.gsettings-override: Set dark wallpaper same as light
+
+ -- Jeremy Bicha <jbicha@ubuntu.com>  Thu, 17 Mar 2022 22:11:05 -0400
+
+ubuntu-settings (22.04.4) jammy; urgency=medium
+
+  * ubuntu-settings.gsettings-override: Dispose desktop icons on bottom-right
+    Ubuntu by default shows the launcher on the left side, so disposing the
+    icons in the same area may make the desktop to look quite cluttered.
+    To avoid this, just dispose icons starting from bottom right corner (but
+    keeping them ordered by name).
+    In any case this can be changed from settings or right-click.
+
+ -- Marco Trevisan (Treviño) <marco@ubuntu.com>  Mon, 14 Mar 2022 02:07:53 +0100
+
+ubuntu-settings (22.04.3) jammy; urgency=medium
+
+  * debian/ubuntu-settings.gsettings-override:
+    - display Ubuntu Pro notifications in Ubuntu sessions
+
+ -- Sebastien Bacher <seb128@ubuntu.com>  Thu, 24 Feb 2022 11:12:31 +0100
+
+ubuntu-settings (22.04.2) jammy; urgency=medium
+
+  * d/ubuntu-raspi-settings.maintscript: Remove the pre-jammy netplan eth0
+    rules; the newer netplan chokes on the space-separated driver filter
+    (LP: #1961618)
+  * meson.build: Remove incorrect positional param
+
+ -- Dave Jones <dave.jones@canonical.com>  Mon, 21 Feb 2022 17:28:05 +0000
+
+ubuntu-settings (22.04.1) jammy; urgency=medium
+
+  * Reinstate changes from 21.04.3:
+    - Adding 99-gpio.rules udev rules for Raspberry Pi GPIO functionality
+      (LP: #1923672)
+    - Replace netplan eth0 renaming rules for raspi with networkd link unit
+      (LP: #1922266)
+  * Override initramfs compression to lz4 to prevent OOM on 512MB platforms,
+    and add a dependency on lz4 to d/control (LP: #1950214)
+  * d/control: Correct spelling of raspberry
+
+ -- Dave Jones <dave.jones@canonical.com>  Wed, 15 Dec 2021 15:29:10 +0100
+
+ubuntu-settings (21.10.4) impish; urgency=medium
+
+  [ Olivier Tilloy ]
+  * ubuntu-settings.gsettings-override:
+    - Update the dock's gsetting override to pin the launcher for the
+      firefox snap (LP: #1943840).
+
+ -- Sebastien Bacher <seb128@ubuntu.com>  Wed, 22 Sep 2021 11:39:23 +0200
+
+ubuntu-settings (21.10.3) impish; urgency=medium
+
+  * ubuntu-settings.gsettings-override:
+    - include the new installer .desktop in the default launcher favorites,
+      similar to what is done for ubiquity
+
+ -- Sebastien Bacher <seb128@ubuntu.com>  Mon, 12 Jul 2021 13:39:38 +0200
+
+ubuntu-settings (21.10.2) impish; urgency=medium
+
+  * ubuntu-settings.gsettings-override: Hide trash and volume icons on desktop.
+    We already show them in the dock, so there's no point to duplicate them
+
+ -- Marco Trevisan (Treviño) <marco@ubuntu.com>  Wed, 07 Jul 2021 08:44:18 +0200
+
+ubuntu-settings (21.10.1) impish; urgency=medium
+
+  * d/ubuntu-settings.gsettings-override: Only set old g-s-d keys in unity.
+    These were removed as part of g-s-d 3.18, so they don't do anything for
+    long time.
+    In the unity session they're instead relevant via the unity schema, so
+    move them into that scope.
+  * d/ubuntu-settings.gsettings-override: Move font-antialiasing into interface
+    g-s-d setting has been moved to desktop-interface schema starting from
+    version 40, so we need to adapt to this change
+  * debian/control: Depend on gsettings-desktop-schemas 40.
+    Even if this is not an hard dependency, we define overrides for keys
+    that are available only starting from gnome 40, so let's depend on it to
+    make it clearer.
+
+ -- Marco Trevisan (Treviño) <marco@ubuntu.com>  Fri, 11 Jun 2021 00:10:22 +0200
+
+ubuntu-settings (21.04.2) hirsute; urgency=medium
+
+  * debian/ubuntu-raspi-settings.gsettings-override: Drop Gorilla wallpaper override.
+    This was for Groovy only. After this release we're using the standard
+    default wallpaper on RPi systems.
+
+ -- Iain Lane <iain.lane@canonical.com>  Tue, 13 Apr 2021 17:00:21 +0100
+
+ubuntu-settings (21.04.1) hirsute; urgency=medium
+
+  * debian/ubuntu-settings.gsettings-override:
+    - use the same power options between session and greeter. (LP: #1902898)
+
+ -- Didier Roche <didrocks@ubuntu.com>  Thu, 25 Feb 2021 13:07:54 +0100
+
+ubuntu-settings (20.10.3) groovy; urgency=medium
+
+  [ Dave Jones ]
+  * Disable suspend action on Raspberry Pi
+  * Remove redundant "/" operator in the raspi meson.build definitions
+
+  [ Iain Lane ]
+  * Install disable-suspend.pkla to /var/lib/polkit-1.
+    This is for the distro, per
+    https://www.freedesktop.org/software/polkit/docs/0.105/pklocalauthority.8.html
+  * Use standard meson vars to define /etc and /var/lib
+  * Unrelease and fix version
+
+ -- Dave Jones <dave.jones@canonical.com>  Wed, 14 Oct 2020 17:42:09 +0100
+
+ubuntu-settings (20.10.2) groovy; urgency=medium
+
+  * Install a GSettings override for ubuntu-raspi-settings to use the new
+    Raspberry Pi specific wallpaper (for Groovy).
+
+ -- Iain Lane <iain.lane@canonical.com>  Wed, 07 Oct 2020 18:07:41 +0100
+
+ubuntu-settings (20.10.1) groovy; urgency=medium
+
+  * Add a new ubuntu-raspi-settings package. This contains some tweaks needed
+    for Raspberry Pi devices. Currently:
+    - Turn off wifi powersaving (Martin Wimpress)
+    - Rename the ethernet interface to eth0 (Dave Jones)
+
+ -- Iain Lane <iain@orangesquash.org.uk>  Wed, 30 Sep 2020 15:32:12 +0100
+
+ubuntu-settings (20.04.5) focal; urgency=medium
+
+  * ubuntu-settings.gsettings-override:
+    - updated the launcher default icons to include snap-store instead of
+      gnome-software, reflecting the default installation choice
+
+ -- Sebastien Bacher <seb128@ubuntu.com>  Thu, 02 Apr 2020 11:52:39 +0200
+
+ubuntu-settings (20.04.4) focal; urgency=medium
+
+  * Add '' around value name, otherwise glib can't find the overriden key
+
+ -- Didier Roche <didrocks@ubuntu.com>  Mon, 27 Jan 2020 11:04:05 +0100
+
+ubuntu-settings (20.04.3) focal; urgency=medium
+
+  * Override info/texdoctk.desktop to not be displayed in Ubuntu sessions
+
+ -- Sebastien Bacher <seb128@ubuntu.com>  Fri, 24 Jan 2020 15:07:23 +0200
+
+ubuntu-settings (20.04.2) focal; urgency=medium
+
+  * Switch terminal to dark variant under ubuntu session to have a better
+    match with Yaru theme.
+
+ -- Didier Roche <didrocks@ubuntu.com>  Fri, 24 Jan 2020 08:08:07 +0100
+
+ubuntu-settings (20.04.1) focal; urgency=medium
+
+  * Drop ubuntu-web-launchers package. It is no longer installed by default,
+    and consequently no longer necessary in the archive.
+  * control, rules: Switch to compat 12 and dh_missing
+
+ -- Iain Lane <iain@orangesquash.org.uk>  Wed, 22 Jan 2020 15:10:54 +0000
+
+ubuntu-settings (19.10.4) eoan; urgency=medium
+
+  * ubuntu-settings.gsettings-override:
+    - Remove SKS network from keyserver defaults, that's following the
+      upstream gcr, see https://gitlab.gnome.org/GNOME/gcr/commit/b841b1f2
+
+ -- Sebastien Bacher <seb128@ubuntu.com>  Wed, 16 Oct 2019 13:38:51 +0200
+
+ubuntu-settings (19.10.3) eoan; urgency=medium
+
+  * ubuntu-settings.gsettings-override:
+    - set the rhythmbox alternative-toolbar default in the ubuntu session
+      to use the csd decoration as it was before
+
+ -- Sebastien Bacher <seb128@ubuntu.com>  Fri, 11 Oct 2019 00:18:57 +0200
+
+ubuntu-settings (19.10.2) eoan; urgency=medium
+
+  [ Khurshid Alam ]
+  * Remove screensaver override for unity
+    Unity is now using it's own schema for media keys. See LP: #1842324
+
+ -- Sebastien Bacher <seb128@ubuntu.com>  Sat, 21 Sep 2019 13:19:29 +0200
+
+ubuntu-settings (19.10.1) eoan; urgency=medium
+
+  * ubuntu-settings.gsettings-override: Move enable-hot-corners to interface
+  * ubuntu-settings.gsettings-override: Use an array for media keys
+
+ -- Marco Trevisan (Treviño) <marco@ubuntu.com>  Sat, 24 Aug 2019 15:30:56 +0300
+
+ubuntu-settings (19.04.4) eoan; urgency=medium
+
+  * ubuntu-settings.gsettings-override:
+    - set the document font to 'Sans 11' for Ubuntu, the GNOME default
+      changed to Cantarell which is not installed for us (lp: #1828108)
+
+ -- Sebastien Bacher <seb128@ubuntu.com>  Tue, 07 May 2019 20:19:36 +0200
+
+ubuntu-settings (19.04.3) disco; urgency=medium
+
+  * ubuntu-settings.gsettings-override:
+    - don't center dialogs on screen by default, that leads to non
+      smart windows placement (lp: #1796548)
+
+ -- Sebastien Bacher <seb128@ubuntu.com>  Fri, 01 Mar 2019 21:41:37 +0100
+
+ubuntu-settings (19.04.2) disco; urgency=medium
+
+  * Remove actions that are now in unity-session package.
+
+ -- Didier Roche <didrocks@ubuntu.com>  Tue, 19 Feb 2019 11:32:38 +0100
+
+ubuntu-settings (19.04.1) disco; urgency=medium
+
+  [ Khurshid Alam ]
+  * Don't use headerbar for gnome-terminal under Unity (LP: #1815479)
+  * Use nemo-desktop to draw desktop icons under Unity. (LP: #1814506)
+
+ -- Didier Roche <didrocks@ubuntu.com>  Tue, 19 Feb 2019 11:30:00 +0100
+
+ubuntu-settings (19.04.0) disco; urgency=medium
+
+  * gnome-initial-setup.desktop: Update for 3.31.90
+
+ -- Jeremy Bicha <jbicha@ubuntu.com>  Thu, 07 Feb 2019 21:46:56 -0500
+
+ubuntu-settings (18.10.8) disco; urgency=medium
+
+  * ubuntu-settings.gsettings-override:
+    - change back the default touchpad right-click action in the ubuntu
+      session to uses the physical area instead of two fingers tapping
+
+ -- Sebastien Bacher <seb128@ubuntu.com>  Wed, 19 Dec 2018 16:17:29 +0100
+
+ubuntu-settings (18.10.7) disco; urgency=medium
+
+  * ubuntu-settings.gsettings-override:
+    - change alt-tab in the ubuntu session to switch between windows
+      instead of applications, the user feedback is that not being able to
+      select easily a specific windows from the switcher is suboptimal.
+
+  [ Iain Lane ]
+  * override: Set desktop-icons icon size to 'small', matching nautilus.
+
+ -- Sebastien Bacher <seb128@ubuntu.com>  Wed, 19 Dec 2018 10:49:58 +0100
+
+ubuntu-settings (18.10.6) cosmic; urgency=medium
+
+  [ Jeremy Bicha ]
+  * ubuntu-settings.gsettings-override: Update for evolution 3.30
+    (LP: #1789090)
+
+  [ Khurshid Alam ]
+  * ubuntu-settings.gsettings-override: Enable background settings daemon
+    plugin for Unity (LP: #1795145)
+
+ -- Jeremy Bicha <jbicha@ubuntu.com>  Mon, 01 Oct 2018 11:08:39 -0400
+
+ubuntu-settings (18.10.3) cosmic; urgency=medium
+
+  [ Khurshid Alam ]
+  * Keep Ambiance as default for Unity. (LP: #1787572)
+
+ -- Didier Roche <didrocks@ubuntu.com>  Tue, 28 Aug 2018 10:27:24 +0200
+
+ubuntu-settings (18.10.2) cosmic; urgency=medium
+
+  * Remove workaround for meson bug #3914 as upstream fix is now in ubuntu
+  * debian/ubuntu-settings.gsettings-override:
+    - Set Yaru and Ubuntu fonts as default for GDM session (LP: #1787999)
+
+ -- Marco Trevisan (Treviño) <marco@ubuntu.com>  Tue, 21 Aug 2018 16:10:49 +0200
+
+ubuntu-settings (18.10.1) cosmic; urgency=medium
+
+  [ Iain Lane ]
+  * Work around meson bug #3914 by creating the symlink in packaging instead
+    of using the upstream build system. This change should be reverted once
+    that bug is fixed.
+
+  [ Didier Roche ]
+  * Set Suru theme and settings as default. (LP: #1783571)
+
+ -- Iain Lane <iain.lane@canonical.com>  Fri, 17 Aug 2018 12:39:12 +0100
+
+ubuntu-settings (18.10) cosmic; urgency=medium
+
+  * debian/control:
+    - convert and change Vcs-* to git
+  * debian/ubuntu-settings.gsettings-override:
+    - revert in communitheme session default font size to 11, as it creates
+      rendering issues in GNOME Shell (LP: #1782190)
+
+ -- Didier Roche <didrocks@ubuntu.com>  Wed, 18 Jul 2018 16:56:31 +0200
+
+ubuntu-settings (18.04.5) bionic; urgency=medium
+
+  * Override font size on communitheme's team request to 10. This impacts
+    only the ubuntu communitheme session which isn't available
+    until you install the snap (LP: #1764974)
+
+ -- Didier Roche <didrocks@ubuntu.com>  Wed, 18 Apr 2018 11:19:45 +0200
+
+ubuntu-settings (18.04.4) bionic; urgency=medium
+
+  * com.canonical.launcher.amazon.desktop:
+    Add Categories:Network; to satisfy appstream-generator
+
+ -- Jeremy Bicha <jbicha@ubuntu.com>  Sat, 14 Apr 2018 11:33:41 -0400
+
+ubuntu-settings (18.04.3) bionic; urgency=medium
+
+  * com.canonical.launcher.amazon.desktop:
+    Add Comment field to satisfy appstream-generator
+  * Drop obsolete dh_translations override
+
+ -- Jeremy Bicha <jbicha@ubuntu.com>  Fri, 13 Apr 2018 13:45:53 -0400
+
+ubuntu-settings (18.04.2) bionic; urgency=medium
+
+  [ Didier Roche ]
+  * Open new windows in the middle of the screen as requested by the community
+    for the communitheme session. (LP: #1758314)
+
+  [ Jeremy Bicha ]
+  * Add override for gnome-initial-setup.desktop for the Ubuntu sessions with
+    'Welcome to Ubuntu' title and Ubuntu icon
+  * Allow the new .desktop to be translated
+  * Depend on gnome-control-center-data since that's where the icon is
+    currently installed
+  * Drop the imagemagick .desktop overrides. Let's fix the issue in
+    imagemagick directly.
+
+ -- Jeremy Bicha <jbicha@ubuntu.com>  Fri, 06 Apr 2018 08:24:28 -0400
+
+ubuntu-settings (18.04.1) bionic; urgency=medium
+
+  * Don't automatically suspend by default when plugged in (LP: #1759008)
+  * Fix typo in gsettings override for communitheme session
+  * Hide imagemagick .desktop in Ubuntu on Wayland too
+  * Make imagemagick .desktop files valid (LP: #1723244)
+
+ -- Jeremy Bicha <jbicha@ubuntu.com>  Sun, 01 Apr 2018 23:27:19 -0400
+
+ubuntu-settings (18.04) bionic; urgency=medium
+
+  * Add gsettings override for communitheme session (LP: #1760049)
+
+ -- Didier Roche <didrocks@ubuntu.com>  Fri, 30 Mar 2018 17:29:10 +0200
+
+ubuntu-settings (17.10.19) bionic; urgency=medium
+
+  [ Marcin Mikołajczak ]
+  * Change default set of applications in the Ubuntu Dock.  This was done
+    as part of Google Code-in 2017.
+
+ -- Ken VanDine <ken.vandine@canonical.com>  Mon, 11 Dec 2017 09:23:03 -0500
+
+ubuntu-settings (17.10.18) artful; urgency=medium
+
+  * Revert the override change in 17.10.16 now that glib is fixed.
+    The plugin list override is back to be per session only.
+
+ -- Didier Roche <didrocks@ubuntu.com>  Fri, 06 Oct 2017 10:03:57 +0200
+
+ubuntu-settings (17.10.17) artful; urgency=medium
+
+  * Hide imagemagick's Display app from the Ubuntu session (LP: #1717951)
+
+ -- Jeremy Bicha <jbicha@ubuntu.com>  Tue, 03 Oct 2017 21:36:30 -0400
+
+ubuntu-settings (17.10.16) artful; urgency=medium
+
+  * debian/ubuntu-settings.gsettings-override:
+    - change the rhythmbox active-plugins override to not be session
+      specific that doesn't work for some reasons and needs debugging
+
+ -- Sebastien Bacher <seb128@ubuntu.com>  Tue, 26 Sep 2017 09:42:49 -0400
+
+ubuntu-settings (17.10.15) artful; urgency=medium
+
+  * Use ubuntu logo by default in GDM.
+    As the contrast is similar between plymouth and GDM, points to
+    the plymouth logo there.
+
+ -- Didier Roche <didrocks@ubuntu.com>  Tue, 12 Sep 2017 07:55:57 +0200
+
+ubuntu-settings (17.10.14) artful; urgency=medium
+
+  * debian/ubuntu-settings.gsettings-override:
+    - change the default power button action to "interactive" under the
+      ubuntu session, as this was our default under previous ubuntu
+      versions as well.
+
+ -- Didier Roche <didrocks@ubuntu.com>  Fri, 08 Sep 2017 11:25:58 +0200
+
+ubuntu-settings (17.10.13) artful; urgency=medium
+
+  * debian/ubuntu-settings.gsettings-override:
+    - Disable evolution tray notifications by default here to allow
+      using the same Evolution packaging as Debian
+  * Bump Standards-Version to 4.1.0
+
+ -- Jeremy Bicha <jbicha@ubuntu.com>  Mon, 04 Sep 2017 09:19:08 -0400
+
+ubuntu-settings (17.10.12) artful; urgency=medium
+
+  * debian/ubuntu-settings.gsettings-override:
+    - disable hot corner by default in ubuntu session
+
+ -- Didier Roche <didrocks@ubuntu.com>  Thu, 17 Aug 2017 17:53:55 +0200
+
+ubuntu-settings (17.10.11) artful; urgency=medium
+
+  * debian/ubuntu-settings.gsettings-override:
+    - cleanup some deprecated keys
+    - remove keys that matches application defaults
+    - separate in 3 set of key overrides:
+      - general, applying to the general ubuntu distro. This include
+        themes for system-wide configuration.
+      - sessions that inherits on the ubuntu defaults in term of user
+        session branding and behavior.
+      - unity session.
+    - change as well some defaults, like trash, volume mounts in the
+      ubuntu GNOME Shell session as we used tohave them in the launcher
+      in Unity.
+    - reorganize the file for better readability.
+    - add GNOME Shell overridden mutter defaults in our ubuntu mode here.
+  * debian/control:
+    - depends on new glib which can read the per-desktop override.
+
+ -- Didier Roche <didrocks@ubuntu.com>  Tue, 15 Aug 2017 08:15:46 +0200
+
+ubuntu-settings (17.10.10) artful; urgency=medium
+
+  * debian/ubuntu-settings.gsettings-override:
+    - enabled the rhythmbox alternative-toolbar plugin (lp: #1703662)
+
+ -- Sebastien Bacher <seb128@ubuntu.com>  Thu, 10 Aug 2017 17:40:11 +0200
+
+ubuntu-settings (17.10.9) artful; urgency=medium
+
+  * debian/ubuntu-settings.gsettings-override:
+    - Set GDM lock screen background to Ubuntu default (LP: #1703326)
+
+ -- Jeremy Bicha <jbicha@ubuntu.com>  Fri, 28 Jul 2017 16:14:51 -0400
+
+ubuntu-settings (17.10.8) artful; urgency=medium
+
+  * debian/ubuntu-settings.gsettings-override:
+    Changed default amazon icon name in the shell.
+
+ -- Didier Roche <didrocks@ubuntu.com>  Thu, 20 Jul 2017 09:56:06 +0200
+
+ubuntu-settings (17.10.7) artful; urgency=medium
+
+  * debian/rules, debian/*.links:
+    - reset old icon as the default, by copying the new one. The new
+      name has NoDisplay=true like a lot of other desktop renames for
+      consistency.
+
+ -- Didier Roche <didrocks@ubuntu.com>  Thu, 20 Jul 2017 09:49:14 +0200
+
+ubuntu-settings (17.10.6) artful; urgency=medium
+
+  * Add Replaces: old launcher package for additional icon.
+
+ -- Didier Roche <didrocks@ubuntu.com>  Tue, 04 Jul 2017 09:28:53 +0200
+
+ubuntu-settings (17.10.5) artful; urgency=medium
+
+  * debian/ubuntu-web-launchers.links:
+    - symlink older launcher icon name to newer one so that it's not
+      dropped by unity when dist-upgrading (LP: #1702089)
+
+ -- Didier Roche <didrocks@ubuntu.com>  Mon, 03 Jul 2017 14:49:09 +0200
+
+ubuntu-settings (17.10.4) artful; urgency=medium
+
+  * Drop org.gnome.sushi override, the schema was dropped in GNOME 3.18
+  * Temporarily set always-show-log-out. This can probably be dropped
+    once Ubuntu 17.10 switches to gdm3.
+
+ -- Jeremy Bicha <jbicha@ubuntu.com>  Wed, 07 Jun 2017 13:28:43 -0400
+
+ubuntu-settings (17.10.3) artful; urgency=medium
+
+  * License the script under GPL-2+ per the rest of ubuntu-settings.
+  * Fix the icon paths.
+  * Break and Replace old versions of unity-asset-pool that shipped the
+    128×128 icon in the same place.
+
+ -- Iain Lane <iain.lane@canonical.com>  Thu, 01 Jun 2017 20:36:01 +0100
+
+ubuntu-settings (17.10.2) artful; urgency=medium
+
+  * Add a script and a new binary package "ubuntu-web-launchers" to hold an
+    Amazon launcher.
+  * Add the launcher to GNOME Shell's favourites by default. (It has TryExec,
+    so it won't show if the user has not got ubuntu-web-launchers installed.)
+  * Freshen the packaging slightly.
+
+ -- Iain Lane <iain.lane@canonical.com>  Thu, 01 Jun 2017 18:20:45 +0100
+
+ubuntu-settings (17.10.1) artful; urgency=medium
+
+  * debian/ubuntu-settings.gsettings-override:
+    - Drop obsolete nautilus sort-directories-first override.
+      Nautilus now uses the GTK+ gsettings key.
+
+ -- Jeremy Bicha <jbicha@ubuntu.com>  Sat, 29 Apr 2017 12:33:41 -0400
+
+ubuntu-settings (17.10.0) artful; urgency=medium
+
+  * debian/ubuntu-settings.gsettings-override:
+    - Drop obsolete nautilus enable-interactive-search override
+      (LP: #1502183)
+
+ -- Jeremy Bicha <jbicha@ubuntu.com>  Sat, 29 Apr 2017 12:08:10 -0400
+
+ubuntu-settings (17.04.1) zesty; urgency=medium
+
+  * debian/ubuntu-settings.gsettings-override:
+      * Update search engine overrides for epiphany-browser 3.23.91
+
+ -- Jeremy Bicha <jbicha@ubuntu.com>  Mon, 27 Feb 2017 23:20:43 -0500
+
+ubuntu-settings (17.04.0) zesty; urgency=medium
+
+  * debian/ubuntu-settings.gsettings-override:
+    - Move Onboard customizations here
+
+ -- Jeremy Bicha <jbicha@ubuntu.com>  Thu, 16 Feb 2017 17:13:02 -0500
+
+ubuntu-settings (16.10.3) yakkety; urgency=medium
+
+  * debian/ubuntu-settings.gsettings-override: Restore the official-sources
+    override too.
+
+ -- Iain Lane <iain.lane@canonical.com>  Thu, 08 Sep 2016 09:56:54 +0100
+
+ubuntu-settings (16.10.2) yakkety; urgency=medium
+
+  * debian/ubuntu-settings.override:
+    - Skip "Let's Go Shopping" pop-up on first run of Software app.
+      This change was accidentally dropped in 16.10.1
+    - Drop totem override that doesn't work (LP: #1621162)
+    - Drop gedit override since the zeitgeist plugin isn't installed
+      by default so this override doesn't work either (LP: #1621176)
+    - Drop font-hinting override; 'slight' is now upstream default
+    - Tweak Epiphany search URL and update GNOME Shell favorites
+      (copied from ubuntu-gnome-default-settings)
+
+ -- Jeremy Bicha <jbicha@ubuntu.com>  Wed, 07 Sep 2016 12:57:06 -0400
+
+ubuntu-settings (16.10.1) yakkety; urgency=medium
+
+  * data/ubuntu-settings.override: Some changes for Nautilus 3.20 (LP:
+    #1576576):
+    - Do not open subfolders on hover
+    - Change the default zoom level to small
+  * Remove ancient Conflicts & Replaces.
+
+ -- Iain Lane <iain.lane@canonical.com>  Tue, 02 Aug 2016 12:10:40 +0100
+
+ubuntu-settings (15.10.8) xenial; urgency=medium
+
+  * debian/ubuntu-settings.override:
+    - gnome-software:
+      + Don't show the "Let's go shopping!" dialog on first launch - it
+        doesn't add much.
+      + Mark packages coming from Ubuntu as official (not '3rd party')
+
+ -- Iain Lane <iain@orangesquash.org.uk>  Thu, 14 Apr 2016 16:30:24 +0100
+
+ubuntu-settings (15.10.7) xenial; urgency=medium
+
+  * debian/ubuntu-settings.override:
+    - revert changes made for nautilus 3.18 since we went back to
+      the previous version
+
+ -- Sebastien Bacher <seb128@ubuntu.com>  Tue, 09 Feb 2016 08:19:10 +0100
+
+ubuntu-settings (15.10.6) xenial; urgency=medium
+
+  * debian/ubuntu-settings.override:
+    - default to not open subfolder on hover, that's too easy to trigger and
+      confuses users (lp: #1532370)
+
+ -- Sebastien Bacher <seb128@ubuntu.com>  Tue, 12 Jan 2016 10:28:26 +0100
+
+ubuntu-settings (15.10.5) xenial; urgency=medium
+
+  * debian/ubuntu-settings.override:
+    - change default nautilus icon-view zoom level to small
+      (lp: #1522316)
+
+ -- Sebastien Bacher <seb128@ubuntu.com>  Wed, 16 Dec 2015 11:06:47 +0100
+
+ubuntu-settings (15.10.4) wily; urgency=medium
+
+  * debian/ubuntu-settings.override:
+    - restore previous tap-to-click behavior by reflecting peripheral
+      schema changes (lp: #1489730)
+
+ -- Nobuto Murata <nobuto@ubuntu.com>  Mon, 28 Sep 2015 15:31:48 +0200
+
+ubuntu-settings (15.10.3) wily; urgency=medium
+
+  * debian/ubuntu-settings.override:
+    - don't follow GNOME change to use system font for titlebars, the bold
+      titles look better under Unity
+
+ -- Sebastien Bacher <seb128@ubuntu.com>  Tue, 09 Jun 2015 18:01:49 +0200
+
+ubuntu-settings (15.10.2) wily; urgency=medium
+
+  * debian/ubuntu-settings.override:
+    - sort directories first in the gtk3 fileselector, that's how it used
+      to be and consistent with nautilus/gtk2/qt/... (lp: #1461085)
+
+ -- Sebastien Bacher <seb128@ubuntu.com>  Tue, 02 Jun 2015 15:10:23 +0200
+
+ubuntu-settings (15.10.1) wily; urgency=medium
+
+  * debian/ubuntu-settings.override:
+    - don't define eog "external-editor", that option doesn't exist in
+      the new 3.16 version (lp: #1439220)
+
+ -- Sebastien Bacher <seb128@ubuntu.com>  Fri, 22 May 2015 10:24:49 +0200
+
+ubuntu-settings (15.10.0) wily; urgency=medium
+
+  [ Christopher Townsend ]
+  * debian/ubuntu-settings.override:
+    - Set the org.gnome.desktop.wm.preferences action-middle-click-titlebar
+      key back to 'lower' by default. (lp: #1456241)
+
+ -- Sebastien Bacher <seb128@ubuntu.com>  Tue, 19 May 2015 09:48:42 +0200
+
+ubuntu-settings (15.04.1) vivid; urgency=medium
+
+  * Use proper casing for Unity8 schemas
+
+ -- Sebastien Bacher <seb128@ubuntu.com>  Fri, 12 Dec 2014 11:50:00 +0100
+
+ubuntu-settings (15.04.0) vivid; urgency=medium
+
+  * debian/ubuntu-settings.override: set unity8 usage mode to Windowed
+    (lp: #1400312)
+
+ -- Sebastien Bacher <seb128@ubuntu.com>  Mon, 08 Dec 2014 18:22:44 +0100
+
+ubuntu-settings (14.10.0) utopic; urgency=medium
+
+  * debian/ubuntu-settings.gsettings-override:
+    - set the screensaver keybinding to 'ctrlalt-l', that's the
+      traditional combo for locking but that got changed in the recent
+      gnome-settings-daemon update
+
+ -- Sebastien Bacher <seb128@ubuntu.com>  Thu, 16 Oct 2014 15:50:19 +0200
+
+ubuntu-settings (14.04.5) trusty; urgency=medium
+
+  * debian/ubuntu-settings.gsettings-override:
+    - set the default encode profiles for rhythmbox to "Ubuntu"
+
+ -- Sebastien Bacher <seb128@ubuntu.com>  Wed, 05 Mar 2014 16:50:06 +0100
+
+ubuntu-settings (14.04.4) trusty; urgency=medium
+
+  * debian/50-ubuntu.conf:
+    - Moved to ubuntu-session package
+
+ -- Robert Ancell <robert.ancell@canonical.com>  Thu, 20 Feb 2014 20:46:05 +1300
+
+ubuntu-settings (14.04.3) trusty; urgency=medium
+
+  * debian/ubuntu-settings.gsettings-override:
+    - include ubuntu-system-settings in the default launcher configuration,
+      clean out the old entries which don't match install desktop entries,
+      they are also not listed in the design
+
+ -- Sebastien Bacher <seb128@ubuntu.com>  Tue, 28 Jan 2014 17:16:52 +0100
+
+ubuntu-settings (14.04.2) trusty; urgency=medium
+
+  * Use type ahead find by default in Nautilus (LP: #1164016)
+
+ -- Robert Ancell <robert.ancell@canonical.com>  Wed, 22 Jan 2014 15:18:03 +1300
+
+ubuntu-settings (14.04.1) trusty; urgency=medium
+
+  * debian/50-ubuntu.conf:
+  * debian/install:
+  * debian/maintscript:
+    - Move 10-ubuntu.conf from /etc to /usr/share and rename it to
+      50-ubuntu.conf to match existing configuration.
+
+ -- Robert Ancell <robert.ancell@canonical.com>  Tue, 07 Jan 2014 14:06:44 +1300
+
+ubuntu-settings (14.04.0) trusty; urgency=low
+
+  * Set the keybindings for moving windows to workspace up & down to only
+    be <Shift><Ctrl><Alt>Up/Down instead of <Super><Shift>Page_Up/Page_Down
+    since Compiz sometimes binds the wrong combination. (LP: #1241282)
+
+ -- Chris Townsend <christopher.townsend@canonical.com>  Mon, 21 Oct 2013 10:25:44 -0400
+
+ubuntu-settings (13.10.9) saucy; urgency=low
+
+  * Override the default background for touch images to the one used by
+    unity8. We target the phone version of the wallpaper for now, as this is
+    the focus for v1.
+
+ -- Łukasz 'sil2100' Zemczak <lukasz.zemczak@canonical.com>  Wed, 09 Oct 2013 11:43:20 +0200
+
+ubuntu-settings (13.10.8) saucy; urgency=low
+
+  * Set the keybindings for workspace up & down switching to only be
+    <Ctrl><Alt>Up/Down instead of <Super>Page_Up/Page_Down since
+    Compiz sometimes binds the wrong combination. (lp: #1201405)
+
+ -- Chris Townsend <christopher.townsend@canonical.com>  Mon, 07 Oct 2013 09:35:58 -0400
+
+ubuntu-settings (13.10.7) saucy; urgency=low
+
+  * enable new scopes on home lens on touch, define defaults for local
+    searching in the touch shell
+
+ -- Oliver Grawert <ogra@ubuntu.com>  Thu, 19 Sep 2013 13:43:24 +0200
+
+ubuntu-settings (13.10.6) saucy; urgency=low
+
+  * make sure that the right list of dash scopes is enabled
+
+ -- Oliver Grawert <ogra@ubuntu.com>  Thu, 12 Sep 2013 17:09:03 +0200
+
+ubuntu-settings (13.10.5) saucy; urgency=low
+
+  * Drop overrides no longer needed with gnome-settings-daemon 3.8:
+    - two-finger-scrolling
+    - idle-dim-time
+
+ -- Jeremy Bicha <jbicha@ubuntu.com>  Mon, 09 Sep 2013 21:47:47 -0400
+
+ubuntu-settings (13.10.4) saucy; urgency=low
+
+  * debian/ubuntu-touch-settings.gsettings-override: new settings
+    package for ubuntu touch (include unity launcher default configuration)
+
+ -- Sebastien Bacher <seb128@ubuntu.com>  Mon, 02 Sep 2013 11:57:03 +0200
+
+ubuntu-settings (13.10.3) saucy; urgency=low
+
+  * Enable two-finger scrolling by default (LP: #1217166)
+
+ -- Jason Gerard DeRose <jason@system76.com>  Thu, 29 Aug 2013 14:27:25 -0600
+
+ubuntu-settings (13.10.2) saucy; urgency=low
+
+  * debian/10-ubuntu.conf:
+    - Move lightdm default session override from gnome-session to this
+      package instead
+
+ -- Jeremy Bicha <jbicha@ubuntu.com>  Mon, 26 Aug 2013 08:45:47 -0400
+
+ubuntu-settings (13.10.1) saucy; urgency=low
+
+  * Add zeitgeist to gedit's default plugins
+
+ -- Jeremy Bicha <jbicha@ubuntu.com>  Wed, 26 Jun 2013 16:31:58 -0400
+
+ubuntu-settings (13.10.0) saucy; urgency=low
+
+  * Merge changes from ubuntu-gnome-default-settings:
+    - Add Ubuntu logo to GDM greeter
+    - Set GNOME Shell "favorites" in the Activities Overview
+
+ -- Jeremy Bicha <jbicha@ubuntu.com>  Thu, 06 Jun 2013 11:12:48 -0400
+
+ubuntu-settings (12.10.8) raring; urgency=low
+
+  * Re-activate rhythmbox's 'artsearch' by default, otherwise we don't get
+    covers displayed in rhythmbox/indicator-sound/unity dash (lp: #1164928)
+
+ -- Sebastien Bacher <seb128@ubuntu.com>  Wed, 10 Apr 2013 15:39:49 +0200
+
+ubuntu-settings (12.10.7) raring; urgency=low
+
+  * Disable gnome-settings-daemon plugins:
+    - print-notifications: We use indicator-printer
+    - updates: That uses PackageKit, we use update-notifier/update-manager.
+    - background: Nautilus renders the background, this imposes an unnecessary
+      check at startup.
+
+ -- Martin Pitt <martin.pitt@ubuntu.com>  Fri, 01 Feb 2013 09:33:44 +0100
+
+ubuntu-settings (12.10.6) raring; urgency=low
+
+  * Workaround an issue in compiz which doesn't overwrite with our compiz
+    settings on first boot in some machines. So set the default compiz
+    value as the first one in those keybindings.
+
+ -- Didier Roche <didrocks@ubuntu.com>  Thu, 10 Jan 2013 15:56:34 +0100
+
+ubuntu-settings (12.10.5) raring; urgency=low
+
+  * Add some overrides that were in the ubuntu-artwork package here as
+    it make more sense to have all overrides in one place.
+
+ -- Didier Roche <didrocks@ubuntu.com>  Mon, 10 Dec 2012 14:56:34 +0100
+
+ubuntu-settings (12.10.4) raring; urgency=low
+
+  * Sort directories first in Nautilus.
+  * Drop obsolete computer-icon-visible setting for Nautilus
+
+ -- Jeremy Bicha <jbicha@ubuntu.com>  Mon, 29 Oct 2012 08:32:31 -0400
+
+ubuntu-settings (12.10.3) quantal; urgency=low
+
+  * Unity now reads its value from gsettings, make the default titlebar using
+    back the Ubuntu Bold font (LP: #1045885)
+
+ -- Didier Roche <didrocks@ubuntu.com>  Mon, 17 Sep 2012 09:39:36 +0200
+
+ubuntu-settings (12.10.2) quantal; urgency=low
+
+  * Rename to ubuntu-settings, as 'ubuntu-default-settings' is used as a pure
+    virtual package for localisation, to ensure that only one l10n package is
+    installed at once.
+
+ -- Iain Lane <iain.lane@canonical.com>  Thu, 13 Sep 2012 10:45:41 +0100
+
+ubuntu-default-settings (12.10.1) quantal; urgency=low
+
+  [ Jeremy Bicha ]
+  * Move button-layout preference from metacity
+  * Move mouse-button-modifier preference from gsettings-desktop-schemas
+  * Move computer-icon-visible preference from nautilus
+  * Move client-decoration preference from gnome-sushi
+
+ -- Robert Ancell <robert.ancell@canonical.com>  Wed, 12 Sep 2012 15:24:19 +1200
+
+ubuntu-default-settings (12.10.0) quantal; urgency=low
+
+  * Initial release. (LP #1039792)
+    - Collects most of Ubuntu's gsettings overrides into a single
+      package so that it's easier for those who don't want or need
+      the Ubuntu customizations to avoid them.
+
+ -- Jeremy Bicha <jbicha@ubuntu.com>  Tue, 21 Aug 2012 19:04:27 -0400
