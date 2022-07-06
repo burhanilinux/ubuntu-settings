@@ -1,2 +1,4 @@
 # ubuntu-settings
-Burhani Linux Ubuntu-settings
+Settings for Burhani Linux.
+
+
