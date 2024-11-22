@@ -1,2 +1,3 @@
 usr/share/ubuntu
 usr/share/ubuntu-wayland
+lib/netplan/00-network-manager-all.yaml

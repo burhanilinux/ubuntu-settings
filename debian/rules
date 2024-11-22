@@ -3,6 +3,9 @@
 %:
 	dh $@ --with translations
 
+override_dh_fixperms:
+	dh_fixperms --exclude lib/netplan/00-network-manager-all.yaml
+
 override_dh_missing:
 	dh_missing --fail-missing
 

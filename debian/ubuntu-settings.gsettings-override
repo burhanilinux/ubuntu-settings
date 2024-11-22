@@ -53,8 +53,8 @@ sleep-inactive-ac-timeout = 0
 gtk-theme = "Yaru"
 icon-theme = "Yaru"
 cursor-theme = "Yaru"
-font-name = "Ubuntu 11"
-monospace-font-name = "Ubuntu Mono 13"
+font-name = "Ubuntu Sans 11"
+monospace-font-name = "Ubuntu Sans Mono 13"
 font-antialiasing = 'rgba'
 
 [org.gnome.login-screen]

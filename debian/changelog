@@ -1,3 +1,17 @@
+ubuntu-settings (24.10.3) oracular; urgency=medium
+
+  New settings for Burhani Linux 6.0
+
+ -- Juzer Dana <juzerdana@gmail.com>   Thu, 29 Aug 2024 19:37:09 +0200
+ 
+ubuntu-settings (24.10.3) oracular; urgency=medium
+
+  * Set default background in GDM gnome-initial-setup session.
+    Use ubuntu default background when using the GNOME greeter session that
+    is default when using gnome-initial-setup from GDM (LP: #2077741)
+
+ -- Marco Trevisan (Treviño) <marco@ubuntu.com>  Thu, 29 Aug 2024 19:37:09 +0200
+ 
 ubuntu-settings (22.04.7) jammy; urgency=medium
 
   * data/ubuntu/applications/gnome-initial-setup.desktop.in:

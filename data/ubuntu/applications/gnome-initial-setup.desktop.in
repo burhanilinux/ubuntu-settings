@@ -8,3 +8,5 @@ Terminal=false
 Type=Application
 StartupNotify=true
 NoDisplay=true
+X-GNOME-HiddenUnderSystemd=true
+StartupWMClass=org.gnome.InitialSetup

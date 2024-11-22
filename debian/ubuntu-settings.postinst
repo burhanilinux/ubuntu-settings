@@ -1,0 +1,23 @@
+#!/bin/sh
+
+set -e
+
+case "$1" in
+    configure)
+        # Remove the obsolete (unpackaged) netplan config file (if unmodified),
+        # or moved it to .dpkg-backup (if modified). This isn't done with
+        # dpkg-maintscripts because those require the prior version was owned
+        # by the package (and this file is owned by nothing).
+        NM_CONF="/etc/netplan/01-network-manager-all.yaml"
+        if [ -e "$NM_CONF" ]; then
+            if [ "$(md5sum "$NM_CONF" | cut -d" " -f1)" = "81c200b0e29eeb56c518a23eb78777ab" ]; then
+                rm -f "$NM_CONF"
+            else
+                echo "Moving modified $NM_CONF to .dpkg-backup" >&2
+                mv -f "$NM_CONF" "${NM_CONF}.dpkg-backup"
+            fi
+        fi
+        ;;
+esac
+
+#DEBHELPER#
